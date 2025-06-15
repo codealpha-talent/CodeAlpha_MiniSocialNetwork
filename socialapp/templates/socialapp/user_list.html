@@ -1,0 +1,38 @@
+{% extends "socialapp/base.html" %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+    <h2>Search for users</h2>
+
+    <form method="get" action="{% url 'user_list' %}">
+        <input type="text" name="q" placeholder="Username" value="{{ query|default:'' }}">
+        <button type="submit" class="btn">🔍 Search</button>
+    </form>
+
+    <ul>
+        {% for user in users %}
+            <li>
+                <a href="{% url 'profile' user.id %}">{{ user.username }}</a>
+
+                {% if user.id in following_ids %}
+                    <form method="post" action="{% url 'follow_user' user.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'follow_user' user.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">Follow</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No users found.</li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'home' %}">⬅ Back to home</a></p>
+{% endblock %}
+
+

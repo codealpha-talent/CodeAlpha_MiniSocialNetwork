@@ -1,0 +1,96 @@
+{% extends 'socialapp/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="dashboard">
+        <h2>Welcome, {{ request.user.username }}!</h2>
+
+        <div class="actions">
+            <a href="{% url 'create_post' %}" class="btn">➕ Create a new post</a>
+            <a href="{% url 'feed' %}" class="btn">📰 View my feed</a>
+            <a href="{% url 'user_list' %}" class="btn">👥 Explore users</a>
+            <a href="{% url 'logout' %}" class="btn danger">🚪 Log out</a>
+        </div>
+
+        <h3>📬 All Posts</h3>
+        <ul class="post-list">
+            {% for post in posts %}
+                <li class="post-card">
+                    <strong><a href="{% url 'profile' post.author.id %}" class="author-link">{{ post.author.username }}</a></strong><br>
+                    <a href="{% url 'post_detail' post.id %}" class="post-content">{{ post.content|truncatechars:100 }}</a>
+                </li>
+            {% empty %}
+                <li class="empty">No posts at the moment.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <style>
+        .dashboard {
+            padding: 10px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #3399ff;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #2878c4;
+        }
+
+        .btn.danger {
+            background-color: #e74c3c;
+        }
+
+        .btn.danger:hover {
+            background-color: #c0392b;
+        }
+
+        .post-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .post-card {
+            background-color: #fdfdfd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.05);
+        }
+
+        .author-link {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .post-content {
+            display: block;
+            margin-top: 5px;
+            color: #34495e;
+        }
+
+        .empty {
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+{% endblock %}
+
+
+
+

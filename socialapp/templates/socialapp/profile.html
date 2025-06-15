@@ -1,0 +1,36 @@
+{% extends "socialapp/base.html" %}
+
+{% block title %}Profile of {{ user_profile.username }}{% endblock %}
+
+{% block content %}
+  <h2>Profile of {{ user_profile.username }}</h2>
+
+  {% if request.user != user_profile %}
+    <form action="{% url 'follow_user' user_profile.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn">
+            {% if is_following %}
+                Unfollow
+            {% else %}
+                Follow
+            {% endif %}
+        </button>
+    </form>
+  {% endif %}
+
+  <h3>Their posts</h3>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <a href="{% url 'post_detail' post.id %}">{{ post.content|truncatechars:50 }}</a>
+        <br>
+        <small>Posted on {{ post.created_at }}</small>
+      </li>
+    {% empty %}
+      <li>No posts yet.</li>
+    {% endfor %}
+  </ul>
+
+  <p><a href="{% url 'home' %}">← Back to home</a></p>
+{% endblock %}
+

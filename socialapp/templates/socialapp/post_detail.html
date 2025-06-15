@@ -1,0 +1,39 @@
+{% extends "socialapp/base.html" %}
+
+{% block title %}Post Details{% endblock %}
+
+{% block content %}
+    <h2>Post by {{ post.author.username }}</h2>
+    <p>{{ post.content }}</p>
+    <p>Published on {{ post.created_at }}</p>
+
+    <form action="{% url 'like_post' post.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn">
+            {% if has_liked %}
+               Unlike
+            {% else %}
+               Like
+            {% endif %}
+        </button>
+    </form>
+    <p>{{ post.like_set.count }} like{{ post.like_set.count|pluralize }}</p>
+
+    <h3>Comments</h3>
+    <ul>
+        {% for comment in comments %}
+            <li><strong>{{ comment.author.username }}:</strong> {{ comment.content }}</li>
+        {% empty %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Add a Comment</h4>
+    <form id="commentForm" method="post" action="{% url 'post_detail' post.id %}">
+        {% csrf_token %}
+        <textarea name="content" rows="3" cols="40" required></textarea><br>
+        <button type="submit" class="btn">Comment</button>
+    </form>
+
+    <p><a href="{% url 'home' %}">Back to home</a></p>
+{% endblock %}
