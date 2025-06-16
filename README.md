@@ -26,8 +26,6 @@ This is a mini social media web application built with **Django**, developed as 
 
 ---
 
----
-
 ## 📷 Screenshots
 
 ### 🏠 Homepage
@@ -44,7 +42,6 @@ This is a mini social media web application built with **Django**, developed as 
 
 ### 📰 Feed
 ![Feed Screenshot](media/screenshots/feed.png)
-
 
 ---
 
