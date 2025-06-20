@@ -70,6 +70,13 @@ Then visit: http://127.0.0.1:8000
 
 ---
 
+## 🎥 Demo Video
+
+Watch the full demo of the project here:  
+👉 [Click to watch the video demo](https://drive.google.com/file/d/1cAiII002-RoEVpThUxeuROk7McrdR6gr/view?usp=sharing)
+
+---
+
 ## 👩‍💻 Author
 
 **Aya Boussader**  
